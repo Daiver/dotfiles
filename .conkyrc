@@ -22,7 +22,7 @@ xftalpha 1
 mail_spool $MAIL
 
 # Update interval in seconds
-update_interval 4.0
+update_interval 3.0
 
 # Create own window instead of using desktop (required in nautilus)
 own_window no
@@ -75,6 +75,7 @@ uppercase no
 # stuff after 'TEXT' will be formatted on screen
 
 TEXT
+${color #ffcb48}TIME: ${time %k:%M:%S}
 ${color #ffcb48}$nodename$color      ${color #828282}$sysname $kernel on 
 $machine$color
    ${color #98c2c7}Batt:$color   ${battery}
@@ -110,6 +111,6 @@ ${color #ffcb48}DATA$color
 #78af78}${fs_bar 6 /}$color
 
    ${downspeedgraph eth0 78af78 a3a3a3}
-   ${color #98c2c7}Download:$color  ${downspeed eth0}kb/s
-   ${color #98c2c7}Upload:$color  ${upspeed eth0}kb/s${color #98c2c7} 
+   ${color #98c2c7}Download:$color  ${downspeed eth0} 
+   ${color #98c2c7}Upload:$color  ${upspeed eth0} ${color #98c2c7} 
    
