@@ -58,13 +58,13 @@ default_outline_color DarkGrey
 
 # Text alignment, other possible values are commented
 #alignment top_left
-alignment top_right
+#alignment top_right
 #alignment bottom_left
-#alignment bottom_right
+alignment bottom_right
 
 # Gap between borders of screen and text
-gap_x 24
-gap_y 24
+gap_x 33
+gap_y 33
 
 # Subtract file system buffers from used memory?
 no_buffers yes
@@ -78,37 +78,38 @@ TEXT
 ${color #ffcb48}$nodename$color      ${color #828282}$sysname $kernel on 
 $machine$color
    ${color #98c2c7}Batt:$color   ${battery}
+   ${color #40c287}UpTime:$color   ${uptime}
 
 ${color #ffcb48}PROCESSING$color
-   ${color #98c2c7}CPU:$color     ${execi 5 cpuspeed}MHz       $cpu% 
+   ${color #98c2c7}CPU:$color     ${execi 5 cpuspeed}MHz       $cpu%
+
    ${execi 5 cputemp}В°C
    ${color #78af78}$cpubar
    ${color #78af78}${cpugraph 78af78 a3a3a3}
 
    ${color #98c2c7}NAME             PID       CPU%      MEM%
-   ${color #e5e5e5}${top name 1} ${top pid 1}   ${top cpu 1}    ${top mem 1}
-   ${color #c4c4c4}${top name 2} ${top pid 2}   ${top cpu 2}    ${top mem 2}
-   ${color #a3a3a3}${top name 3} ${top pid 3}   ${top cpu 3}    ${top mem 3}
-   ${color #828282}${top name 4} ${top pid 4}   ${top cpu 4}    ${top mem 4}
+   ${color #ff9000}${top name 1} ${top pid 1}   ${top cpu 1}    ${top mem 1}
+   ${color #aa9000}${top name 2} ${top pid 2}   ${top cpu 2}    ${top mem 2}
+   ${color #779000}${top name 3} ${top pid 3}   ${top cpu 3}    ${top mem 3}
+   ${color #a3a3a3}${top name 4} ${top pid 4}   ${top cpu 4}    ${top mem 4}   
+   ${color #828282}${top name 5} ${top pid 5}   ${top cpu 5}    ${top mem 5}
 
 ${color #ffcb48}DATA$color
    ${color #98c2c7}RAM:$color     $memperc%         ${color 
 #78af78}${membar 6}${color}
 
    ${color #98c2c7}NAME             PID       CPU%      MEM%
-   ${color #e5e5e5}${top_mem name 1} ${top_mem pid 1}   ${top_mem cpu 1} 
-    ${top_mem mem 1}
-   ${color #c4c4c4}${top_mem name 2} ${top_mem pid 2}   ${top_mem cpu 2} 
-    ${top_mem mem 2}
-   ${color #a3a3a3}${top_mem name 3} ${top_mem pid 3}   ${top_mem cpu 3} 
-    ${top_mem mem 3}
-   ${color #828282}${top_mem name 4} ${top_mem pid 4}   ${top_mem cpu 4} 
-    ${top_mem mem 4}
+   ${color #e5e5e5}${top_mem name 1} ${top_mem pid 1}   ${top_mem cpu 1}  ${top_mem mem 1}
+   ${color #c4c4c4}${top_mem name 2} ${top_mem pid 2}   ${top_mem cpu 2}  ${top_mem mem 2}
+   ${color #a3a3a3}${top_mem name 3} ${top_mem pid 3}   ${top_mem cpu 3}  ${top_mem mem 3}
+   ${color #828282}${top_mem name 4} ${top_mem pid 4}   ${top_mem cpu 4}  ${top_mem mem 4}
 
    ${color #98c2c7}Swap:$color    $swapperc%         ${color 
 #78af78}${swapbar 6}$color
    ${color #98c2c7}/:$color       ${fs_free_perc /}%  $fs_free  ${color 
 #78af78}${fs_bar 6 /}$color
 
+   ${downspeedgraph eth0 78af78 a3a3a3}
+   ${color #98c2c7}Download:$color  ${downspeed eth0}kb/s
    ${color #98c2c7}Upload:$color  ${upspeed eth0}kb/s${color #98c2c7} 
-   Download:$color  ${downspeed eth0}kb/s
+   
