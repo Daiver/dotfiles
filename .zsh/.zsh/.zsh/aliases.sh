@@ -1,20 +1,10 @@
 #!/bin/zsh
 # vim: set filetype=zsh
 
-#setxkbmap -layout 'us,ru' -variant ',winkeys,winkeys' -option grp:caps_toggle -option grp_led:caps -option terminate:ctrl_alt_bksp
-setxkbmap -layout us,ru -option "grp:alt_shift_toggle"
+alias er='python ~/coding/MyPy/translate/translate.py alias en ru'
+alias re='python ~/coding/MyPy/translate/translate.py alias ru en'
 
-alias stackless='/usr/local/stackless/bin/./python'
-
-alias er='python ~/coding/MyPy/scripts/translate/translate.py en ru'
-alias re='python ~/coding/MyPy/scripts/translate/translate.py ru en'
-alias translate='python ~/coding/MyPy/scripts/translate/translate.py'
-
-alias google='python ~/coding/MyPy/scripts/google.py'
-
-alias wass='python ~/coding/MyPy/scripts/wass.py'
-
-alias weather='python ~/coding/MyPy/scripts/pyweather/weather.py'
+alias weather='python ~/coding/MyPy/pyweather/weather.py'
 
 alias ls='ls --classify --color --human-readable --group-directories-first'
 

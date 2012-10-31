@@ -8,7 +8,6 @@ alias stackless='/usr/local/stackless/bin/./python'
 
 alias er='python ~/coding/MyPy/scripts/translate/translate.py en ru'
 alias re='python ~/coding/MyPy/scripts/translate/translate.py ru en'
-alias translate='python ~/coding/MyPy/scripts/translate/translate.py'
 
 alias google='python ~/coding/MyPy/scripts/google.py'
 
