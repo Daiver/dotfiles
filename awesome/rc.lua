@@ -183,7 +183,7 @@ sp.text = " | "
 --Splitter (разделитель)}}}
 -- text box{
 mytextbox = widget({ type = "textbox" })
-mytextbox.text = "change wallpapaer"
+mytextbox.text = "CW"
 mytextbox:buttons(awful.util.table.join(
    awful.button({ }, 1, function () wpchange() end)
  ))
