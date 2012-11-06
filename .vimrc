@@ -13,6 +13,9 @@ set expandtab "Ставим табы пробелами
 set softtabstop=4 "4 пробела в табе
 "Автоотступ
 set autoindent
+
+"ignore caps
+set ic
 "Подсвечиваем все что можно подсвечивать
 let python_highlight_all = 1
 "Включаем 256 цветов в терминале, мы ведь работаем из иксов?
@@ -84,4 +87,15 @@ set fileencodings=utf8,cp1251 " Возможные кодировки файло
 " то будет использоваться cp1251
 imap <special><F5> <ESC>:w\|!python %<CR>
 nmap <F5> :w\|!python %<CR>
-
+function! InsertTabWrapper(direction)
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    elseif "backward" == a:direction
+        return "\<c-p>"                                 
+    else
+        return "\<c-n>"
+    endif
+ endfunction
+inoremap <tab> <c-r>=InsertTabWrapper ("forward")<cr>
+inoremap <s-tab> <c-r>=InsertTabWrapper ("backward")<cr>
