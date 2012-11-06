@@ -354,7 +354,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
     awful.key({ modkey}, "g", function () awful.util.spawn("google-chrome") end),
-        awful.key({ modkey}, "c", function () awful.util.spawn("sakura -x zsh") end),
+    awful.key({ modkey}, "c", function () awful.util.spawn("sakura -x zsh") end),
+    awful.key({ modkey}, "a", function () awful.util.spawn("gnome-terminal -x ranger") end),
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt

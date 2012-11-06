@@ -10,7 +10,7 @@ background no
 use_xft yes
 
 # Xft font when Xft is enabled
-xftfont Bitstream Vera Sans Mono-7
+xftfont Bitstream Vera Sans Mono-9
 #xftfont Andale Mono-9
 #xftfont Clean-8
 #xftfont cubicfive10:pixelsize=8
@@ -109,8 +109,8 @@ ${color #ffcb48}DATA$color
 #78af78}${swapbar 6}$color
    ${color #98c2c7}/:$color       ${fs_free_perc /}%  $fs_free  ${color 
 #78af78}${fs_bar 6 /}$color
-
-   ${downspeedgraph eth0 78af78 a3a3a3}
+${color #ffcb48}NET
+   ${color #78af78}${downspeedgraph eth0 78af78 a3a3a3}
    ${color #98c2c7}Download:$color  ${downspeed eth0} 
    ${color #98c2c7}Upload:$color  ${upspeed eth0} ${color #98c2c7} 
    
