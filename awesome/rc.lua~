@@ -8,7 +8,11 @@ require("beautiful")
 require("naughty")
 
 -- Vicious
-require("vicious")
+--require("vicious")
+vicious = require("vicious")
+vicious.contrib = require("vicious.contrib")
+vicious.helpers = require("vicious.helpers")
+vicious.widgets = require("vicious.widgets")
 
 -- Load Debian menu entries
 require("debian.menu")
@@ -102,7 +106,8 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+--beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/zhongguo/zhongguo.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -167,8 +172,28 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- }}}
 
 -- {{{ Battery widget
+--batwidget = awful.widget.progressbar()
+
+--vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
+
+-- }}}
+
+--{{{ Battery state
+
+-- Initialize widget
 batwidget = widget({ type = "textbox" })
---vicious.register(batwidget, vicious.widgets.bat, "$2%", 61, "BAT0")
+baticon = widget({ type = "imagebox" })
+
+-- Register widget
+vicious.register(batwidget, vicious.widgets.bat,
+	function (widget, args)
+		if args[2] == 0 then return ""
+		else
+			baticon.image = image(beautiful.widget_bat)
+			return "<span color='white'>".. args[2] .. "%</span>"
+		end
+	end, 61, "BAT0"
+)
 -- }}}
 
 -- {{{ Wibox
@@ -180,10 +205,11 @@ calendar2.addCalendarToWidget(mytextclock, "<span color='green'>%s</span>")
 --{{{Splitter (разделитель)
 sp = widget({ type = "textbox" })
 sp.text = " | "
+
 --Splitter (разделитель)}}}
 -- text box{
 mytextbox = widget({ type = "textbox" })
-mytextbox.text = "change wallpapaer"
+mytextbox.text = "CW"
 mytextbox:buttons(awful.util.table.join(
    awful.button({ }, 1, function () wpchange() end)
  ))
@@ -204,9 +230,40 @@ dbus.add_signal("ru.gentoo.kbdd", function(...)
     end 
 ) 
 --end lang
-
+--mem
+memwidget = widget({ type = "textbox" })
+vicious.cache(vicious.widgets.mem)
+vicious.register(memwidget, vicious.widgets.mem, "$1 ($2MB/$3MB)", 13)
+--end mem
 -- Create a systray
 mysystray = widget({ type = "systray" })
+
+-- Create a volume widget 
+--volumewidget = widget({ type = 'textbox'}) 
+--vicious.cache(vicious.widgets.volume) 
+--vicious.register(volumewidget, vicious.widgets.volume, 'Vol: $1% |', 1, "Master") 
+--end volume
+
+
+-- {{{ Volume level
+volicon = widget({ type = "imagebox" })
+volicon.image = image(beautiful.widget_vol)
+-- Initialize widgets
+volbar    = awful.widget.progressbar()
+volwidget = widget({ type = "textbox" })
+-- Progressbar properties
+volbar:set_vertical(true):set_ticks(true)
+volbar:set_height(16):set_width(8):set_ticks_size(2)
+volbar:set_background_color(beautiful.fg_off_widget)
+volbar:set_gradient_colors({ beautiful.fg_widget,
+   beautiful.fg_center_widget, beautiful.fg_end_widget
+}) -- Enable caching
+vicious.cache(vicious.widgets.volume)
+-- Register widgets
+vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "PCM")
+vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "PCM")
+
+-- }}}
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -283,8 +340,10 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright,
         }, 
         mylayoutbox[s], sp,
-        mytextbox, sp, mytextclock,sp ,
-        kbdwidget, sp, --language
+        mytextbox, sp, mytextclock, sp, --memwidget, batwidget,volumewidget, 
+        sp, volwidget,  volbar.widget, volicon,
+        baticon.image and sep, batwidget, baticon or nil, sp,
+        kbdwidget,  sp, 
         s == 1 and mysystray or nil,
         mytasklist[s], 
         layout = awful.widget.layout.horizontal.rightleft
@@ -371,7 +430,7 @@ globalkeys = awful.util.table.join(
 )
 
 clientkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
+	awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
