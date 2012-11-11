@@ -13,7 +13,7 @@ theme.themedir      = theme.themedir .. "/themes/zhongguo"
 -- }}}
 
 theme.wallpaper_cmd = { "" }
-
+theme.wallpaper_cmd = { "awsetbg /usr/share/awesome/themes/default/background.png" }
 
 
 -- {{{ Styles
@@ -29,7 +29,7 @@ theme.bg_urgent = theme.bg_normal
 -- }}}
 
 -- {{{ Borders
-theme.border_width  = 1
+theme.border_width  = 0
 theme.border_focus  = "#8E2323"
 theme.border_normal = "#333333"
 

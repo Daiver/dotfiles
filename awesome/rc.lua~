@@ -70,11 +70,11 @@ mytimer10 = timer({ timeout = 10 })
 
 --{{{Функция смены обоев
 function wpchange()
-    awful.util.spawn("awsetbg -f -r " .. wallpaperdir)
+    awful.util.spawn("awsetbg -c -r " .. wallpaperdir)
 end
 
 -- Менять обои каждые 1800 секунд
-mytimer1800:add_signal("timeout", function() wpchange() end)
+mytimer1800:add_signal("timeout", function() awful.util.spawn("awsetbg -f -r /home/kirill/.config/awesome/backgrounds/")aw end)
 --Функция смены обоев}}
 
 autorun = true
@@ -204,7 +204,7 @@ calendar2.addCalendarToWidget(mytextclock, "<span color='green'>%s</span>")
 
 --{{{Splitter (разделитель)
 sp = widget({ type = "textbox" })
-sp.text = " | "
+sp.text = " :: "
 
 --Splitter (разделитель)}}}
 -- text box{
@@ -260,8 +260,8 @@ volbar:set_gradient_colors({ beautiful.fg_widget,
 }) -- Enable caching
 vicious.cache(vicious.widgets.volume)
 -- Register widgets
-vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "PCM")
-vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "PCM")
+vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "Master -c0")
+vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "Master -c0")
 
 -- }}}
 
@@ -341,7 +341,7 @@ for s = 1, screen.count() do
         }, 
         mylayoutbox[s], sp,
         mytextbox, sp, mytextclock, sp, --memwidget, batwidget,volumewidget, 
-        sp, volwidget,  volbar.widget, volicon,
+        volwidget,  volbar.widget, volicon, sp,
         baticon.image and sep, batwidget, baticon or nil, sp,
         kbdwidget,  sp, 
         s == 1 and mysystray or nil,
@@ -415,6 +415,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey}, "g", function () awful.util.spawn("google-chrome") end),
     awful.key({ modkey}, "c", function () awful.util.spawn("sakura -x zsh") end),
     awful.key({ modkey}, "a", function () awful.util.spawn("gnome-terminal -x ranger") end),
+    awful.key({modkey, "Control"}, "n", function() wpchange() end),
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
