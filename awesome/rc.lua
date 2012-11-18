@@ -22,6 +22,8 @@ require("beautiful") -- Темы
 require("utility")
 require("awful/widget/calendar2")
 
+require("revelation")
+
 os.setlocale('ru_RU.UTF-8') --}}}
 
 -- {{{ Error handling
@@ -163,8 +165,14 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
+mysystemmenu = {
+   {  "Reboot", terminal .. " -e sudo reboot" },
+   {  "shutdown", terminal .. " -e sudo shutdown 1" },
+}
+
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "Debian menu", debian.menu.Debian_menu.Debian },
+                                    { "sys", mysystemmenu },
                                     { "open terminal", terminal }
                                   }
                         })
@@ -375,6 +383,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    awful.key({ modkey}, "e", revelation),
 
     awful.key({ modkey,           }, "j",
         function ()
