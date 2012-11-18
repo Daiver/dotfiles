@@ -111,7 +111,8 @@ beautiful.init(awful.util.getdir("config") .. "/themes/zhongguo/zhongguo.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
-editor = "gedit"--os.getenv("EDITOR") or "editor"
+--editor = "gedit"--os.getenv("EDITOR") or "editor"
+editor = "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -143,13 +144,14 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "w", "B", "T", 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    --tags[s] = awful.tag({ "w", "B", "T", 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    tags[s] = awful.tag({ "α", "β", "γ", "δ", "ε", "η", "θ", "λ", "ω" }, s, layouts[1])
 end
 
+--Tags with default layout
 awful.layout.set(layouts[10], tags[1][2])
 awful.layout.set(layouts[1], tags[1][1])
 awful.layout.set(layouts[3], tags[1][3])
-
 -- }}}
 
 -- {{{ Menu
@@ -339,13 +341,14 @@ for s = 1, screen.count() do
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright,
         }, 
-        mylayoutbox[s], sp,
-        mytextbox, sp, mytextclock, sp, --memwidget, batwidget,volumewidget, 
-        volwidget,  volbar.widget, volicon, sp,
+        mylayoutbox[s], sp, 
+        mytextbox, sp, 
+        --mytextclock, sp, --memwidget, batwidget,volumewidget, 
         baticon.image and sep, batwidget, baticon or nil, sp,
+        volwidget,  volbar.widget, volicon, sp,
         kbdwidget,  sp, 
-        s == 1 and mysystray or nil,
-        mytasklist[s], 
+        s == 1 and mysystray or nil, sp, mytextclock, sp,
+        mytasklist[s], sp, 
         layout = awful.widget.layout.horizontal.rightleft
     }
 end
@@ -561,11 +564,4 @@ wpchange()
 mytimer1800:start()
 --mytimer10:start()
 --mytimer3:start()
-
--- mytextbox = widget({ type = "textbox" })
--- mytextbox.text = '<span color="white">Sacrebleu, I have seen a ghost!</span> '
-
-
--- Nasa BG
---run_once("sh ~/.config/scripts/nasaBackground.sh")
 
