@@ -24,6 +24,11 @@ require("awful/widget/calendar2")
 
 require("revelation")
 
+--require("shifty")
+
+-- useful for debugging, marks the beginning of rc.lua exec
+print("Entered rc.lua: " .. os.time())
+
 os.setlocale('ru_RU.UTF-8') --}}}
 
 -- {{{ Error handling
