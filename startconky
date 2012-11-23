@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Stats Bar
+sleep 10 && conky -c ~/conkyrc
+exit
