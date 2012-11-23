@@ -21,7 +21,7 @@ theme.font      = "Terminus 8"
 
 -- {{{ Colors
 theme.fg_normal = "#DCDCCC"
-theme.fg_focus  = "#F0DFAF"
+theme.fg_focus  = "#F0DF7F"
 theme.fg_urgent = "#CC9393"
 theme.bg_normal = "#3F3F3F"
 theme.bg_focus  = "#1E2320"
@@ -86,9 +86,9 @@ theme.taglist_squares_unsel = theme.themedir .. "/icons/taglist/squareza.png"
 -- }}}
 
 -- {{{ Misc icons
---theme.awesome_icon           = theme.themedir .. "/icons/awesome.png"
---theme.menu_submenu_icon      = "/usr/share/awesome/themes/default/submenu.png"
---theme.tasklist_floating_icon = "/usr/share/awesome/themes/default/tasklist/floatingw.png"
+theme.awesome_icon           = theme.themedir .. "/icons/awesome.png"
+theme.menu_submenu_icon      = "/usr/share/awesome/themes/default/submenu.png"
+theme.tasklist_floating_icon = "/usr/share/awesome/themes/default/tasklist/floatingw.png"
 -- }}}
 
 -- {{{ Layout icons
