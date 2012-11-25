@@ -111,11 +111,36 @@ if autorun then
    end
 end
 
+--theme work {{{
+mythememenu = {}
+function theme_load(theme)
+  local cfg_path = awful.util.getdir("config")
+  -- Create a symlink from the given theme to /home/user/.config/awesome/current_theme
+  awful.util.spawn("ln -sfn " .. cfg_path .. "/themes/" .. theme .. " " .. cfg_path .. "/current_theme")
+  awesome.restart()
+end
+
+function theme_menu()
+-- List your theme files and feed the menu table
+  local cmd = "ls -1 " .. awful.util.getdir("config") .. "/themes/"
+  local f = io.popen(cmd)
+  for l in f:lines() do
+    local item = { l, function () theme_load(l) end }
+    table.insert(mythememenu, item)
+  end
+  f:close()
+end
+theme_menu()
+
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 --beautiful.init("/usr/share/awesome/themes/default/theme.lua")
-beautiful.init(awful.util.getdir("config") .. "/themes/zhongguo/zhongguo.lua")
+--beautiful.init(awful.util.getdir("config") .. "/themes/zhongguo/zhongguo.lua")
+--beautiful.init(awful.util.getdir("config") .. "/themes/dust/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/current_theme/theme.lua")
+
+--theme work
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -151,11 +176,12 @@ layouts =
 -- Define a tag table which hold all screen tags
 -- taglist numerals
 --- arabic, chinese, {east|persian}_arabic, roman, thai, random
-taglist_numbers = "chinese" -- we support arabic (1,2,3...),
+taglist_numbers = "roman" -- we support arabic (1,2,3...),
 
-st_numbers_langs = { 'arabic', 'chinese', 'east_arabic', 'persian_arabic', }
+st_numbers_langs = { 'arabic', 'chinese', 'east_arabic', 'persian_arabic', 'korean', 'roman', 'greek', 'thai', }
 taglist_numbers_sets = {
     arabic = { 1, 2, 3, 4, 5, 6, 7, 8, 9 },
+    korean = {"ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"},
     chinese = {"一", "二", "三", "四", "五", "六", "七", "八", "九", "十"},
     east_arabic = {'١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'}, -- '٠' 0
     persian_arabic = {'٠', '١', '٢', '٣', '۴', '۵', '۶', '٧', '٨', '٩'},
@@ -168,8 +194,6 @@ tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     --tags[s] = awful.tag({ "w", "B", "T", 4, 5, 6, 7, 8, 9 }, s, layouts[1])
-    --tags[s] = awful.tag({ "α", "β", "γ", "δ", "ε", "η", "θ", "λ", "ω" }, s, layouts[1])
-    --tags[s] = awful.tag({"一", "二", "三", "四", "五", "六", "七", "八", "九", "十"}, s, layouts[1])
     if taglist_numbers == 'random' then
         math.randomseed(os.time())
         local taglist = taglist_numbers_sets[taglist_numbers_langs[math.random(table.getn(taglist_numbers_langs))]]
@@ -202,6 +226,7 @@ mysystemmenu = {
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "Debian menu", debian.menu.Debian_menu.Debian },
                                     { "sys", mysystemmenu },
+                                    { "Themes", mythememenu },
                                     { "open terminal", terminal }
                                   }
                         })
@@ -238,7 +263,7 @@ vicious.register(batwidget, vicious.widgets.bat,
 -- {{{ Wibox
 -- Create a textclock widget
 --mytextclock = awful.widget.textclock({ align = "right" })
-mytextclock = awful.widget.textclock({ align = "right" }, "<i>%a</i> %d %b, %H:%M:%S", 1)
+mytextclock = awful.widget.textclock({ align = "right" }, "<i>%a</i> %d %b %Y, %H:%M:%S", 1)
 calendar2.addCalendarToWidget(mytextclock, "<span color='green'>%s</span>")
 
 --{{{Splitter (разделитель)
