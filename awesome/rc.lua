@@ -30,6 +30,7 @@ require("eminent")
 require('freedesktop.utils')
 require('freedesktop.menu')
 
+require("scratch")
 
 -- useful for debugging, marks the beginning of rc.lua exec
 print("Entered rc.lua: " .. os.time())
@@ -513,7 +514,40 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end)
+              end),
+  -- Scratchpad
+  awful.key({ modkey }, "`", function()
+      scratch.drop(terminal .. " -name scratch", "bottom", "right", 1.0, 0.40, true)
+    end),
+
+  awful.key({ modkey }, 0,
+    function ()
+      local screen = mouse.screen
+      if tags[screen][10].selected then
+        awful.tag.history.restore(screen)
+      elseif tags[screen][10] then
+        awful.tag.viewonly(tags[screen][10])
+      end
+    end),
+  awful.key({ modkey, "Control" }, 0,
+    function ()
+      local screen = mouse.screen
+      if tags[screen][10] then
+        tags[screen][10].selected = not tags[screen][10].selected
+      end
+    end),
+  awful.key({ modkey, "Shift" }, 0,
+    function ()
+      if client.focus and tags[client.focus.screen][10] then
+        awful.client.movetotag(tags[client.focus.screen][10])
+      end
+    end),
+  awful.key({ modkey, "Control", "Shift" }, 0,
+    function ()
+      if client.focus and tags[client.focus.screen][10] then
+        awful.client.toggletag(tags[client.focus.screen][10])
+      end
+    end)
 )
 
 clientkeys = awful.util.table.join(
