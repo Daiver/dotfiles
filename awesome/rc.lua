@@ -27,6 +27,10 @@ require("revelation")
 --require("shifty")
 require("eminent")
 
+require('freedesktop.utils')
+require('freedesktop.menu')
+
+
 -- useful for debugging, marks the beginning of rc.lua exec
 print("Entered rc.lua: " .. os.time())
 
