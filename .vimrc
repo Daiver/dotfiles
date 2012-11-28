@@ -1,6 +1,9 @@
 "Вырубаем режим совместимости с VI:
 set nocompatible
 
+"pathogen init
+call pathogen#infect()
+
 "Включаем распознавание типов файлов и типо-специфичные плагины:
 filetype on
 filetype plugin on
@@ -28,15 +31,18 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
+
+
 "Авто комплит по табу
 function InsertTabWrapper()
-let col = col('.') - 1
-if !col || getline('.')[col - 1] !~ '\k'
-return "\"
-else
-return "\<c-p>"
-endif
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\"
+    else
+        return "\<c-p>"
+    endif
 endfunction
+
 imap <c-r>=InsertTabWrapper()"Показываем все полезные опции автокомплита сразу
 set complete=""
 set complete+=.
@@ -61,6 +67,7 @@ vmap <C-C> "+yi
 imap <C-V> "+gPi
 
 "colorscheme wombat256 "Цветовая схема
+"colorscheme Laravel
 syntax on "Включить подсветку синтаксиса
 set nu "Включаем нумерацию строк
 set mousehide "Спрятать курсор мыши когда набираем текст
@@ -78,6 +85,10 @@ set foldcolumn=1
 "Переносим на другую строчку, разрываем строки
 set wrap
 set linebreak
+
+"syntastic
+let g:syntastic_enable_signs=1
+let b:shell = 'sh'
 
 "Вырубаем .swp и ~ (резервные) файлы
 set nobackup
