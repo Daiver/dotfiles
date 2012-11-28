@@ -516,9 +516,6 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
   -- Scratchpad
-  awful.key({ modkey }, "`", function()
-      scratch.drop(terminal .. " -name scratch", "bottom", "right", 1.0, 0.40, true)
-    end),
 
   awful.key({ modkey }, 0,
     function ()
