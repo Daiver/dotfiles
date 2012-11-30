@@ -30,7 +30,7 @@ require("eminent")
 require('freedesktop.utils')
 require('freedesktop.menu')
 
-require("scratch")
+--require("scratch")
 
 -- useful for debugging, marks the beginning of rc.lua exec
 print("Entered rc.lua: " .. os.time())
@@ -181,7 +181,7 @@ layouts =
 -- Define a tag table which hold all screen tags
 -- taglist numerals
 --- arabic, chinese, {east|persian}_arabic, roman, thai, random
-taglist_numbers = "korean" -- we support arabic (1,2,3...),
+taglist_numbers = "greek" -- we support arabic (1,2,3...),
 
 st_numbers_langs = { 'arabic', 'chinese', 'east_arabic', 'persian_arabic', 'korean', 'roman', 'greek', 'thai', }
 taglist_numbers_sets = {
@@ -607,7 +607,37 @@ for i = 1, keynumber do
                   end))
 end
 
+for i = 11, 32 do
+    globalkeys = awful.util.table.join(globalkeys,
+        awful.key({ modkey }, "F" .. i - 10,--"#" .. i + 9,
+                  function ()
+                        local screen = mouse.screen
+                        if tags[screen][i] then
+                            awful.tag.viewonly(tags[screen][i])
+                        end
+                  end),
+        awful.key({ modkey, "Control" }, "F" .. i - 10,--"#" .. i + 9,
+                  function ()
+                      local screen = mouse.screen
+                      if tags[screen][i] then
+                          awful.tag.viewtoggle(tags[screen][i])
+                      end
+                  end),
+        awful.key({ modkey, "Shift" }, "F" .. i - 10,--"#" .. i + 9,
+                  function ()
+                      if client.focus and tags[client.focus.screen][i] then
+                          awful.client.movetotag(tags[client.focus.screen][i])
+                      end
+                  end),
+        awful.key({ modkey, "Control", "Shift" }, "F" .. i - 10,--"#" .. i + 9,
+                  function ()
+                      if client.focus and tags[client.focus.screen][i] then
+                          awful.client.toggletag(tags[client.focus.screen][i])
+                      end
+                  end))
+end
 clientbuttons = awful.util.table.join(
+
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize))
