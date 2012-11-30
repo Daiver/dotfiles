@@ -181,7 +181,7 @@ layouts =
 -- Define a tag table which hold all screen tags
 -- taglist numerals
 --- arabic, chinese, {east|persian}_arabic, roman, thai, random
-taglist_numbers = "roman" -- we support arabic (1,2,3...),
+taglist_numbers = "korean" -- we support arabic (1,2,3...),
 
 st_numbers_langs = { 'arabic', 'chinese', 'east_arabic', 'persian_arabic', 'korean', 'roman', 'greek', 'thai', }
 taglist_numbers_sets = {
