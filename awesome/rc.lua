@@ -19,14 +19,18 @@ require("debian.menu")
 
 require("beautiful") -- Темы
 
+-- my own files
 require("utility")
-require("awful/widget/calendar2")
+require("awful/widget/calendar3")
 
+-- MacOs like 
 require("revelation")
 
+-- Like shifty, but better
 --require("shifty")
 require("eminent")
 
+-- Unused
 require('freedesktop.utils')
 require('freedesktop.menu')
 
@@ -65,11 +69,10 @@ end
 
 --
 --local vars
-wallpaperdir = "/home/kirill/.config/awesome/backgrounds/"
-fss = {--Показывать место
-    {"/home", "h"},
-    {"/", "/"}
-}
+
+homedir = "/home/kirill/"
+configdir = homedir .. ".config/awesome/"
+wallpaperdir = configdir .. "backgrounds/"
 
 --}local vars
 
@@ -87,13 +90,15 @@ function wpchange()
 end
 
 -- Менять обои каждые 1800 секунд
-mytimer1800:add_signal("timeout", function() awful.util.spawn("awsetbg -f -r /home/kirill/.config/awesome/backgrounds/") end)
+--mytimer1800:add_signal("timeout", function() awful.util.spawn("awsetbg -f -r /home/kirill/.config/awesome/backgrounds/") end)
+mytimer1800:add_signal("timeout", function() wpchange() end)
+
 --Функция смены обоев}}
 
 autorun = true
  
 autorunApps = --Приложения, которым нужен перезапуск при перезапуске AwesomeWM
-   {
+{
    "kbdd",
 }
  
@@ -104,7 +109,6 @@ runOnceApps = --Приложения, при перезапуске которы
     "gnome-settings-daemon",
     "pasystray",
     "conky",
-    -- "awsetbg ~/",
 }
  
 if autorun then
@@ -181,7 +185,7 @@ layouts =
 -- Define a tag table which hold all screen tags
 -- taglist numerals
 --- arabic, chinese, {east|persian}_arabic, roman, thai, random
-taglist_numbers = "roman" -- we support arabic (1,2,3...),
+taglist_numbers = "korean" -- we support arabic (1,2,3...),
 
 st_numbers_langs = { 'arabic', 'chinese', 'east_arabic', 'persian_arabic', 'korean', 'roman', 'greek', 'thai', }
 taglist_numbers_sets = {
@@ -192,7 +196,7 @@ taglist_numbers_sets = {
     persian_arabic = {'٠', '١', '٢', '٣', '۴', '۵', '۶', '٧', '٨', '٩'},
     roman ={ 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXII', 'XXIII'},
     thai = {'๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙', '๑๐'},
-    greek = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "Ι", "Κ", "λ", "μ", "ν", "ξ", "π", "σ", "τ", "φ", "χ", "ψ", "ω" }
+    greek = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "Ι", "Κ", "λ", "μ", "ν", "ξ", "π", "σ", "τ", "φ", "χ", "ψ", "ω", "the end" }
 }
 
 tags = {}
@@ -569,37 +573,41 @@ clientkeys = awful.util.table.join(
 )
 
 -- Compute the maximum number of digit we need, limited to 9
-keynumber = 0
-for s = 1, screen.count() do
-   keynumber = math.min(9, math.max(#tags[s], keynumber));
-end
+keynumber = 9 --0
+--for s = 1, screen.count() do
+--   keynumber = math.min(9, math.max(#tags[s], keynumber));
+--end
 
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, keynumber do
+    local keycode =  "#" .. i + 9
+    if i == 10 then
+        --keycode = "0"
+    end
     globalkeys = awful.util.table.join(globalkeys,
-        awful.key({ modkey }, "#" .. i + 9,
+        awful.key({ modkey }, keycode,
                   function ()
                         local screen = mouse.screen
                         if tags[screen][i] then
                             awful.tag.viewonly(tags[screen][i])
                         end
                   end),
-        awful.key({ modkey, "Control" }, "#" .. i + 9,
+        awful.key({ modkey, "Control" }, keycode,
                   function ()
                       local screen = mouse.screen
                       if tags[screen][i] then
                           awful.tag.viewtoggle(tags[screen][i])
                       end
                   end),
-        awful.key({ modkey, "Shift" }, "#" .. i + 9,
+        awful.key({ modkey, "Shift" }, keycode,
                   function ()
                       if client.focus and tags[client.focus.screen][i] then
                           awful.client.movetotag(tags[client.focus.screen][i])
                       end
                   end),
-        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+        awful.key({ modkey, "Control", "Shift" }, keycode,
                   function ()
                       if client.focus and tags[client.focus.screen][i] then
                           awful.client.toggletag(tags[client.focus.screen][i])
@@ -636,6 +644,7 @@ for i = 11, 32 do
                       end
                   end))
 end
+
 clientbuttons = awful.util.table.join(
 
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
