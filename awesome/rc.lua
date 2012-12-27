@@ -304,14 +304,14 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
 --lang
 kbdwidget = widget({type = "textbox", name = "kbdwidget"})
 kbdwidget.border_color = beautiful.fg_normal
-kbdwidget.text = "Eng"
+kbdwidget.text = "USA"
 
 dbus.request_name("session", "ru.gentoo.kbdd") 
 dbus.add_match("session", "interface='ru.gentoo.kbdd',member='layoutChanged'") 
 dbus.add_signal("ru.gentoo.kbdd", function(...) 
     local data = {...} 
     local layout = data[2] 
-    lts = {[0] = "Eng", [1] = "Рус"} 
+    lts = {[0] = "USA", [1] = "RU"} 
     kbdwidget.text = " "..lts[layout].." " 
     end 
 ) 
