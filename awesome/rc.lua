@@ -110,15 +110,6 @@ runOnceApps = --Приложения, при перезапуске которы
     "pasystray",
     "conky",
 }
- 
-if autorun then
-   for app = 1, #autorunApps do
-      awful.util.spawn(autorunApps[app])
-   end
-   for app = 1, #runOnceApps do
-      utility.run_once(runOnceApps[app])
-   end
-end
 
 --theme work {{{
 mythememenu = {}
@@ -519,6 +510,13 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
+    awful.key({ 'Mod1' }, "F2", function ()
+        awful.prompt.run({ prompt = "wiki: " }, mypromptbox[mouse.screen].widget,
+            function (command)
+                awful.util.spawn("google-chrome 'http://ru.wikipedia.org/w/index.php?search=="..command.."'", false)
+                if tags[mouse.screen][2] then awful.tag.viewonly(tags[mouse.screen][2]) end
+            end)
+    end),
   -- Scratchpad
 
   awful.key({ modkey }, 0,
@@ -711,6 +709,24 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
+ 
+if autorun then
+   for app = 1, #autorunApps do
+      awful.util.spawn(autorunApps[app])
+      naughty.notify({text="--starts", title="" .. autorunApps[app], hover_timeout=0.5})
+      --naughty.notify({
+      --      text = autorunApps[app],
+      --      timeout = 0,
+      --      hover_timeout = 0.5,
+      --      screen = capi.mouse.screen
+      --      })
+
+   end
+   for app = 1, #runOnceApps do
+      utility.run_once(runOnceApps[app])
+      naughty.notify({text="--oncerun", title="" .. runOnceApps[app], hover_timeout=0.5})
+   end
+end
 
 wpchange()
 
