@@ -73,6 +73,7 @@ end
 homedir = "/home/kirill/"
 configdir = homedir .. ".config/awesome/"
 wallpaperdir = configdir .. "backgrounds/"
+scriptsdir = homedir .. "coding/MyPy/"
 
 --}local vars
 
@@ -94,6 +95,27 @@ end
 mytimer1800:add_signal("timeout", function() wpchange() end)
 
 --Функция смены обоев}}
+
+function aw_translate()
+    local val = '...' 
+    awful.prompt.run({ prompt = "translate: " }, mypromptbox[mouse.screen].widget,
+            function(expr)
+            local command = "python " .. scriptsdir .. "scripts/translate/translate.py en ru " .. expr 
+            local f = io.popen(command)
+            if f then
+                val = f:read("*all")
+                f:close()
+            else
+                val = "< error >"
+            end
+            naughty.notify({
+                text = expr .. " ~> " .. val,
+                timeout = 1.,
+                hover_timeout=1.0,
+                position = "top_left"
+            })
+        end)
+end
 
 autorun = true
  
@@ -176,7 +198,7 @@ layouts =
 -- Define a tag table which hold all screen tags
 -- taglist numerals
 --- arabic, chinese, {east|persian}_arabic, roman, thai, random
-taglist_numbers = "korean" -- we support arabic (1,2,3...),
+taglist_numbers = "greek" -- we support arabic (1,2,3...),
 
 st_numbers_langs = { 'arabic', 'chinese', 'east_arabic', 'persian_arabic', 'korean', 'roman', 'greek', 'thai', }
 taglist_numbers_sets = {
@@ -275,7 +297,10 @@ sp.text = " :: "
 mytextbox = widget({ type = "textbox" })
 mytextbox.text = "CW"
 mytextbox:buttons(awful.util.table.join(
-   awful.button({ }, 1, function () awful.util.spawn("awsetbg -f -r /home/kirill/.config/awesome/backgrounds/") end)
+   awful.button({ }, 1, function () 
+   wpchange()
+   --awful.util.spawn("awsetbg -f -r /home/kirill/.config/awesome/backgrounds/") 
+   end)
  ))
 --textbox}
 
@@ -497,11 +522,15 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey}, "g", function () awful.util.spawn("google-chrome") end),
     awful.key({ modkey}, "c", function () awful.util.spawn("sakura -x zsh") end),
     awful.key({ modkey}, "a", function () awful.util.spawn("gnome-terminal -x ranger") end),
-    awful.key({modkey, "Control"}, "n", function() awful.util.spawn("awsetbg -f -r /home/kirill/.config/awesome/backgrounds/") end),
+    awful.key({modkey, "Control"}, "v", function() 
+                wpchange()
+                --awful.util.spawn("awsetbg -f -r /home/kirill/.config/awesome/backgrounds/") 
+            end),
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+
 
     awful.key({ modkey }, "x",
               function ()
@@ -510,10 +539,12 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
+
+    awful.key({ 'Mod1' }, "F1", function () aw_translate() end),
     awful.key({ 'Mod1' }, "F2", function ()
         awful.prompt.run({ prompt = "wiki: " }, mypromptbox[mouse.screen].widget,
             function (command)
-                awful.util.spawn("google-chrome 'http://ru.wikipedia.org/w/index.php?search=="..command.."'", false)
+                awful.util.spawn("google-chrome 'http://ru.wikipedia.org/w/index.php?search="..command.."'", false)
                 if tags[mouse.screen][2] then awful.tag.viewonly(tags[mouse.screen][2]) end
             end)
     end),
