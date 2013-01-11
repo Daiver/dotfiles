@@ -131,6 +131,7 @@ runOnceApps = --Приложения, при перезапуске которы
     "gnome-settings-daemon",
     "pasystray",
     "conky",
+    --"xcompmgr -cF",
 }
 
 --theme work {{{
@@ -207,9 +208,9 @@ taglist_numbers_sets = {
     chinese = {"一", "二", "三", "四", "五", "六", "七", "八", "九", "十"},
     east_arabic = {'١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'}, -- '٠' 0
     persian_arabic = {'٠', '١', '٢', '٣', '۴', '۵', '۶', '٧', '٨', '٩'},
-    roman ={ 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXII', 'XXIII'},
+    roman ={ ' I ', ' II ', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXII', 'XXIII'},
     thai = {'๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙', '๑๐'},
-    greek = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "Ι", "Κ", "λ", "μ", "ν", "ξ", "π", "σ", "τ", "φ", "χ", "ψ", "ω", "the end" }
+    greek = { " α ", " β ", " γ ", " δ ", " ε ", " ζ ", " η ", " θ ", " Ι ", " Κ ", " λ ", " μ ", " ν ", " ξ ", " π ", " σ ", " τ ", " φ ", " χ ", " ψ ", " ω ", "the end" }
 }
 
 tags = {}
