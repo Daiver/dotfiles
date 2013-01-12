@@ -1,4 +1,5 @@
 -- Standard awesome library
+require("rodentbane")
 require("awful")
 require("awful.autofocus")
 require("awful.rules")
@@ -122,6 +123,7 @@ autorun = true
 autorunApps = --Приложения, которым нужен перезапуск при перезапуске AwesomeWM
 {
    "kbdd",
+   "xmodmap " ..  awful.util.getdir("config").. "/Xmodmaprc",
 }
  
 runOnceApps = --Приложения, при перезапуске которых появляется нежелательная вторая копия
@@ -523,6 +525,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey}, "g", function () awful.util.spawn("google-chrome") end),
     awful.key({ modkey}, "c", function () awful.util.spawn("sakura -x zsh") end),
     awful.key({ modkey}, "a", function () awful.util.spawn("gnome-terminal -x ranger") end),
+    awful.key({ modkey}, "z", function () rodentbane.start() end),
     awful.key({modkey, "Control"}, "v", function() 
                 wpchange()
                 --awful.util.spawn("awsetbg -f -r /home/kirill/.config/awesome/backgrounds/") 
