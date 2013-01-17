@@ -46,7 +46,8 @@ end
 theme.font          = "Montecarlo 8"
 
 theme.bg_normal     = "#05050595"
-theme.bg_focus      = "#191919"
+--theme.bg_focus      = "#191919"
+theme.bg_focus      = "#05050595"
 theme.bg_urgent     = "#d6d9ba"
 theme.bg_minimize   = "#19191995"
 
