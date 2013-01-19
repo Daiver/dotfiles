@@ -1,42 +1,82 @@
-##Conky Settings##
-
-background no
-no_buffers yes
-double_buffer yes
-update_interval 1.0
-
-own_window yes
-own_window_type override
-own_window_transparent yes
-own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders no
-
-alignment top_left
-gap_x 19
-gap_y 45
-minimum_size 188 188
 
 use_xft yes
-xftalpha 0.8
-xftfont AvantGarde LT Medium:size=48
-
-default_color 221221
-default_shade_color 000000
-
-
+#улучшаем шрифты
+xftfont Droid Sans:size=8
+#Название и размер шрифта
+text_buffer_size 2048
+#Если текст обрезается, увеличить text_buffer_size
+update_interval 3.0 
+#Время обновления коньков
+total_run_times 0
+#Сколько conky будет ждать перед выходом, если получен сигнал завершения
+#own_window yes
+#создавать своё окно
+#own_window_type normal
+#тип окна
+#own_window_argb_visual yes
+#для kde, иначе будет не прозрачный фон
+#own_window_transparent yes
+#прозрачный фон
+#own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+#Свойства окна
+double_buffer yes
+#двойная буферизация
+minimum_size 250 5
+#минимальный размер окна (x y)
+background no
+draw_shades no
+#Отрисовывать оттенки?
+draw_outline no
+draw_borders no
+#отрисовывать границу?
+draw_graph_borders no
+default_color white
+#стандартный цвет
+default_shade_color black
+#стандартный оттенок
+default_outline_color black
+alignment top_left
+#создать окно коньков в верхнем_левом углу
+gap_x 20
+#отступ по оси x
+gap_y 20
+#отступ по оси y
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+net_avg_samples 1
+override_utf8_locale yes
+#utf-8 локаль
+use_spacer none
+ 
 TEXT
-${voffset 11}${goto 19}${time %H}${goto 110}${time %M}
-${image ~/Light-Back.png -p 0,0 -s 188x148}
+#ВСЁ НИЖЕ БУДЕТ ВЫВОДИТЬСЯ
+${image ~/Light-Back-1.png -p -1,0 -s 589x619}
+${voffset 10}${color ffffff}${font Droid Sans:pixelsize=120}${time %H:%M}${font}${voffset -84}${offset 10}${color FFA300}${font Droid Sans:pixelsize=42}${time %d}${voffset -15}${color ffffff}${font Droid Sans:pixelsize=22}Ноября ${time %Y}${font}${voffset 24}${font Droid Sans:pixelsize=58}${offset -148}${time %A}${font}
+#Часы, дата.
+${voffset 20}${font Droid Sans:pixelsize=14}${color FFA300}/root ${offset 9}$color${fs_used /} / ${fs_size /}  (${fs_used_perc /}%)${alignc}${offset 41}${color FFA300}RAM ${offset 9}$color$mem/ $memmax
+#рут диск и оперативка
+${voffset 10}${color FFA300}/Home${offset 9}$color${fs_used /home} / ${fs_size /home}  (${fs_used_perc /home}%) ${alignc}${offset 35}${color FFA300}Uptime: ${offset 9}$color${uptime}
 
-${voffset -114}${goto 15}${font Ubuntu:size=14}${color #feffef}${time %A}
-${goto 15}${font AvantGarde LT Medium:size=14}${time %d}-${time %m}-${time %Y}
-${image ~/Light-Back-1.png -p 0,154 -s 188x57}
-${voffset -7.5}${goto 15}CPU:${alignr}$cpu %  
-${goto 15}RAM:${alignr}${memperc} %  
-${image ~/Light-Back-1.png -p 0,217 -s 188x57}
-${voffset -5.5}${goto 15}Down:${alignr}${downspeedf eth0} KiB  
-${goto 15}Up:${alignr}${upspeedf eth0} KiB  
+${voffset 10}${color FFA300}CPU: ${offset 9}$color${cpu cpu0}% ${alignc}${color FFA300}BAT0: ${offset 9}$color${battery_percent}%${offset 9}
+# Проц и батарейка
+${voffset 10}Kernel ${color FFA300}$kernel$color Mem usage ${color FFA300}$mem$color 
+#ядро ещё раз оперативка
+${voffset 10}Top CPU:
+${voffset 10}${color FFA300}Name $alignc RAM    CPU$color
+${top name 1} $alignc ${top mem 1} ${top cpu 1}
+${top name 2} $alignc ${top mem 2} ${top cpu 2}
+${top name 3} $alignc ${top mem 3} ${top cpu 3}
+${top name 4} $alignc ${top mem 4} ${top cpu 4}
+${top name 5} $alignc ${top mem 5} ${top cpu 5}
+#Процессы, которые больше всего потребляют ресурсов
+${voffset 10}eth0:
+${voffset 10}IP : $alignc ${addr eth0}
+Up:  ${upspeed eth0} kb/s $alignc total: ${totalup eth0}
+Down:  ${downspeed eth0} kb/s $alignc total: ${totaldown eth0}
+#ip адресс wlan0
+${voffset 10}wlan0:
+${voffset 10}IP : $alignc ${addr wlan0}
+wlan name: $alignc ${wireless_essid wlan0}
+Up:  ${upspeed wlan0} kb/s $alignc total: ${totalup wlan0}
+Down:  ${downspeed wlan0} kb/s $alignc total: ${totaldown wlan0}

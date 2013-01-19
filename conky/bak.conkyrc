@@ -1,0 +1,42 @@
+##Conky Settings##
+
+background no
+no_buffers yes
+double_buffer yes
+update_interval 1.0
+
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+alignment top_left
+gap_x 19
+gap_y 45
+minimum_size 188 188
+
+use_xft yes
+xftalpha 0.8
+xftfont AvantGarde LT Medium:size=48
+
+default_color 221221
+default_shade_color 000000
+
+
+TEXT
+${voffset 11}${goto 19}${time %H}${goto 110}${time %M}
+${image ~/Light-Back.png -p 0,0 -s 188x148}
+
+${voffset -114}${goto 15}${font Ubuntu:size=14}${color #feffef}${time %A}
+${goto 15}${font AvantGarde LT Medium:size=14}${time %d}-${time %m}-${time %Y}
+${image ~/Light-Back-1.png -p 0,154 -s 188x57}
+${voffset -7.5}${goto 15}CPU:${alignr}$cpu %  
+${goto 15}RAM:${alignr}${memperc} %  
+${image ~/Light-Back-1.png -p 0,217 -s 188x57}
+${voffset -5.5}${goto 15}Down:${alignr}${downspeedf eth0} KiB  
+${goto 15}Up:${alignr}${upspeedf eth0} KiB  
