@@ -124,6 +124,7 @@ autorunApps = --Приложения, которым нужен перезапу
 {
    "kbdd",
    "xmodmap " ..  awful.util.getdir("config").. "/Xmodmaprc",
+   "setxkbmap -layout 'us,ru' -variant ',winkeys,winkeys' -option grp:caps_toggle -option grp_led:caps -option terminate:ctrl_alt_bksp",
 }
  
 runOnceApps = --Приложения, при перезапуске которых появляется нежелательная вторая копия
