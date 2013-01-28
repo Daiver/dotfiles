@@ -124,7 +124,8 @@ autorunApps = --Приложения, которым нужен перезапу
 {
    "kbdd",
    "xmodmap " ..  awful.util.getdir("config").. "/Xmodmaprc",
-   "setxkbmap -layout 'us,ru' -variant ',winkeys,winkeys' -option grp:caps_toggle -option grp_led:caps -option terminate:ctrl_alt_bksp",
+   --"setxkbmap -layout 'us,ru' -variant ',winkeys,winkeys' -option grp:caps_toggle -option grp_led:caps -option terminate:ctrl_alt_bksp",
+   "setxkbmap 'us,ru' ',winkeys' 'grp:alt_shift_toggle'",
 }
  
 runOnceApps = --Приложения, при перезапуске которых появляется нежелательная вторая копия
@@ -230,9 +231,8 @@ for s = 1, screen.count() do
 end
 
 --Tags with default layout
-awful.layout.set(layouts[10], tags[1][2])
+awful.layout.set(layouts[10], tags[1][3])
 awful.layout.set(layouts[1], tags[1][1])
-awful.layout.set(layouts[3], tags[1][3])
 -- }}}
 
 -- {{{ Menu
@@ -706,7 +706,7 @@ awful.rules.rules = {
       properties = { floating = true } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Google-chrome" },
-       properties = { tag = tags[1][2] } },
+       properties = { tag = tags[1][3] } },
 }
 -- }}}
 
