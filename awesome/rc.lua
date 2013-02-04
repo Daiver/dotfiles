@@ -73,7 +73,7 @@ end
 
 homedir = "/home/kirill/"
 configdir = homedir .. ".config/awesome/"
-wallpaperdir = configdir .. "backgrounds/"
+wallpaperdir = homedir .. "backgrounds/"
 scriptsdir = homedir .. "coding/MyPy/"
 
 --}local vars
