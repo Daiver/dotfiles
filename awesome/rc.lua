@@ -284,6 +284,11 @@ vicious.register(batwidget, vicious.widgets.bat,
 		end
 	end, 61, "BAT0"
 )
+
+-- Initialize widget
+cpuwidget = widget({ type = "textbox" })
+-- Register widget
+vicious.register(cpuwidget, vicious.widgets.cpu, "P:$1%")
 -- }}}
 
 -- {{{ Wibox
@@ -339,7 +344,7 @@ dbus.add_signal("ru.gentoo.kbdd", function(...)
 --mem
 memwidget = widget({ type = "textbox" })
 vicious.cache(vicious.widgets.mem)
-vicious.register(memwidget, vicious.widgets.mem, "$1% ($2MB/$3MB)", 13)
+vicious.register(memwidget, vicious.widgets.mem, "RAM:$1%", 13)
 --end mem
 -- Create a systray
 mysystray = widget({ type = "systray" })
@@ -446,14 +451,15 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright,
         }, 
         mylayoutbox[s], sp, 
-        mytextbox, sp,
-        --mpdwidget, sp, 
+        mytextbox, sp, 
         --mytextclock, sp, --memwidget, batwidget,volumewidget, 
         baticon.image and sep, batwidget, baticon or nil, sp,
         volwidget,  volbar.widget, volicon, sp,
         kbdwidget,  sp, 
         s == 1 and mysystray or nil, sp, 
-        --memwidget, sp, 
+        memwidget, sp, 
+        cpuwidget, sp, 
+        mpdwidget, sp,
         mytextclock, sp,
         mytasklist[s], sp, 
         layout = awful.widget.layout.horizontal.rightleft
