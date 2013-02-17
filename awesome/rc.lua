@@ -203,12 +203,12 @@ layouts =
 -- Define a tag table which hold all screen tags
 -- taglist numerals
 --- arabic, chinese, {east|persian}_arabic, roman, thai, random
-taglist_numbers = "greek" -- we support arabic (1,2,3...),
+taglist_numbers = "korean" -- we support arabic (1,2,3...),
 
 st_numbers_langs = { 'arabic', 'chinese', 'east_arabic', 'persian_arabic', 'korean', 'roman', 'greek', 'thai', }
 taglist_numbers_sets = {
     arabic = { 1, 2, 3, 4, 5, 6, 7, 8, 9 },
-    korean = {"ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"},
+    korean = {"ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "갔", "어", "요"},
     chinese = {"一", "二", "三", "四", "五", "六", "七", "八", "九", "十"},
     east_arabic = {'١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'}, -- '٠' 0
     persian_arabic = {'٠', '١', '٢', '٣', '۴', '۵', '۶', '٧', '٨', '٩'},
@@ -336,7 +336,7 @@ dbus.add_match("session", "interface='ru.gentoo.kbdd',member='layoutChanged'")
 dbus.add_signal("ru.gentoo.kbdd", function(...) 
     local data = {...} 
     local layout = data[2] 
-    lts = {[0] = "USA", [1] = "RU"} 
+    lts = {[0] = "USA", [1] = "RUS"} 
     kbdwidget.text = " "..lts[layout].." " 
     end 
 ) 
