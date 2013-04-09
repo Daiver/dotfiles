@@ -123,7 +123,7 @@ autorun = true
 autorunApps = --Приложения, которым нужен перезапуск при перезапуске AwesomeWM
 {
    "kbdd",
-   "xmodmap " ..  awful.util.getdir("config").. "/Xmodmaprc",
+   "xmodmap " .. configdir .. "/Xmodmaprc",
    --"setxkbmap -layout 'us,ru' -variant ',winkeys,winkeys' -option grp:caps_toggle -option grp_led:caps -option terminate:ctrl_alt_bksp",
    "setxkbmap 'us,ru' ',winkeys' 'grp:alt_shift_toggle'",
 }
@@ -170,7 +170,8 @@ beautiful.init(awful.util.getdir("config") .. "/current_theme/theme.lua")
 --theme work
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
+--terminal = "x-terminal-emulator"
+terminal = "gnome-terminal"
 --editor = "gedit"--os.getenv("EDITOR") or "editor"
 editor = "vim"
 editor_cmd = terminal .. " -e " .. editor
@@ -203,7 +204,7 @@ layouts =
 -- Define a tag table which hold all screen tags
 -- taglist numerals
 --- arabic, chinese, {east|persian}_arabic, roman, thai, random
-taglist_numbers = "korean" -- we support arabic (1,2,3...),
+taglist_numbers = "roman" -- we support arabic (1,2,3...),
 
 st_numbers_langs = { 'arabic', 'chinese', 'east_arabic', 'persian_arabic', 'korean', 'roman', 'greek', 'thai', }
 taglist_numbers_sets = {
@@ -532,6 +533,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey}, "g", function () awful.util.spawn("google-chrome") end),
     awful.key({ modkey}, "c", function () awful.util.spawn("sakura -x zsh") end),
     awful.key({ modkey}, "a", function () awful.util.spawn("gnome-terminal -x ranger") end),
+    awful.key({ modkey}, "[", function () awful.util.spawn("xset led 3") end),
+    awful.key({ modkey}, "]", function () awful.util.spawn("xset -led 3") end),
     awful.key({ modkey}, "z", function () rodentbane.start() end),
     awful.key({modkey, "Control"}, "v", function() 
                 wpchange()
