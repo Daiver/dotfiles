@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Start
 # Configure IP address for WLAN
 sudo ifconfig wlan0 192.168.150.1
@@ -10,6 +11,7 @@ sudo sysctl net.ipv4.ip_forward=1
 sudo iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE
 # Run access point daemon
 sudo hostapd /etc/hostapd.conf
+
 # Stop
 # Disable NAT
 sudo iptables -D POSTROUTING -t nat -o ppp0 -j MASQUERADE
@@ -17,4 +19,3 @@ sudo iptables -D POSTROUTING -t nat -o ppp0 -j MASQUERADE
 sudo sysctl net.ipv4.ip_forward=0
 # Disable DHCP/DNS server
 sudo service dnsmasq stop
-sudo service hostapd stop
