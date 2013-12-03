@@ -3,6 +3,7 @@ set nocompatible
 
 "pathogen init
 call pathogen#infect()
+let g:neocomplete#enable_at_startup = 1
 
 "Включаем распознавание типов файлов и типо-специфичные плагины:
 filetype on
@@ -30,20 +31,6 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-
-
-"Авто комплит по табу
-function InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-
-imap <c-r>=InsertTabWrapper()"Показываем все полезные опции автокомплита сразу
 set complete=""
 set complete+=.
 set complete+=k
