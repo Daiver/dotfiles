@@ -1,0 +1,5 @@
+neobundle.vim
+neocomplete.vim
+unite.vim
+vimfiler.vim
+vimproc

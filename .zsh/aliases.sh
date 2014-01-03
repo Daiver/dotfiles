@@ -18,10 +18,10 @@ alias weather='python ~/coding/MyPy/scripts/pyweather/weather.py'
 
 alias ls='ls --classify --color --human-readable --group-directories-first'
 
-alias cp='nocorrect cp --interactive --verbose --recursive --preserve=all'
-alias mv='nocorrect mv --verbose --interactive'
+alias cp='nocorrect cp'
+alias mv='nocorrect mv'
 
-alias rm='nocorrect rm -Irv'
+alias rm='nocorrect rm'
 
 alias grep='grep --color=always'
 
@@ -34,13 +34,10 @@ alias fls="fls -rd"
 
 alias cd..='cd ..'
 alias cd~='cd ~'
-alias s='sudo'
+alias s='sudo -H'
 alias v='vim'
-alias sv='sudo vim'
+alias sv='sudo -H vim'
 alias sk='sudo killall'
-alias rm='rm -v'
-alias cp='cp -v'
-alias mv='mv -v'
 alias k='killall' 
 alias a='sudo aptitude'
  

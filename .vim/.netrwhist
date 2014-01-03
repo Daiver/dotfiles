@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/home/kirill/coding/googolplex/Searcher/src/main/scala/code/snippet'
-let g:netrw_dirhist_2='/home/daiver/coding/wi-fi-blog/app/views/layouts'
-let g:netrw_dirhist_3='/home/daiver/coding/TryRoR/daiver-blog/app/assets/javascripts'
-let g:netrw_dirhist_4='/home/daiver/coding/jff/hs/haskellweb/Handler'
-let g:netrw_dirhist_5='/home/daiver/coding/jff/hs/haskellweb/config'
-let g:netrw_dirhist_6='/home/daiver/coding/jff/JustDoIt/tagit/tagit/template'
-let g:netrw_dirhist_7='/home/daiver/coding/iss_alg_reimplement'
