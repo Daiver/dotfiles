@@ -66,5 +66,3 @@ colorscheme wombat256mod
  set softtabstop=4 "4 пробела в табе
  "Автоотступ
  "set autoindent
- "
- "
