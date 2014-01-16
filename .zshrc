@@ -36,6 +36,9 @@ source $ZSH/oh-my-zsh.sh
 source ~/.zsh/aliases.sh
 source ~/.zsh/prompt.sh
 
+setxkbmap 'us,ru' ',winkeys' 'grp:alt_shift_toggle'
+setxkbmap 'us,ru' ',winkeys' 'grp:caps_toggle'
+
 # Customize to your needs...
 export PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 [ -e ~/.zsh/notyfyosd.zsh ] && . ~/.zsh/notyfyosd.zsh

@@ -25,7 +25,6 @@ require("utility")
 require("awful/widget/calendar3")
 
 -- MacOs like 
-require("revelation")
 
 -- Like shifty, but better
 --require("shifty")
@@ -71,10 +70,10 @@ end
 --
 --local vars
 
-homedir = "/home/kirill/"
+homedir = "/home/daiver/"
 configdir = homedir .. ".config/awesome/"
 wallpaperdir = homedir .. "backgrounds/"
-scriptsdir = homedir .. "coding/MyPy/"
+scriptsdir = homedir .. "coding/"
 
 --}local vars
 
@@ -88,7 +87,8 @@ mytimer10 = timer({ timeout = 10 })
 
 --{{{Функция смены обоев
 function wpchange()
-    awful.util.spawn("awsetbg -c -r " .. wallpaperdir)
+    awful.util.spawn("python " .. wallpaperdir .. "set_random_bg.py")
+    --awful.util.spawn("awsetbg -a -r " .. wallpaperdir )
 end
 
 -- Менять обои каждые 1800 секунд
@@ -97,44 +97,23 @@ mytimer1800:add_signal("timeout", function() wpchange() end)
 
 --Функция смены обоев}}
 
-function aw_translate()
-    local val = '...' 
-    awful.prompt.run({ prompt = "translate: " }, mypromptbox[mouse.screen].widget,
-            function(expr)
-            local command = "python " .. scriptsdir .. "scripts/translate/translate.py en ru " .. expr 
-            local f = io.popen(command)
-            if f then
-                val = f:read("*all")
-                f:close()
-            else
-                val = "< error >"
-            end
-            naughty.notify({
-                text = expr .. " ~> " .. val,
-                timeout = 1.,
-                hover_timeout=1.0,
-                position = "top_left"
-            })
-        end)
-end
-
 autorun = true
  
 autorunApps = --Приложения, которым нужен перезапуск при перезапуске AwesomeWM
 {
-   "kbdd",
-   "xmodmap " .. configdir .. "/Xmodmaprc",
    --"setxkbmap -layout 'us,ru' -variant ',winkeys,winkeys' -option grp:caps_toggle -option grp_led:caps -option terminate:ctrl_alt_bksp",
-   "setxkbmap 'us,ru' ',winkeys' 'grp:alt_shift_toggle'",
 }
  
 runOnceApps = --Приложения, при перезапуске которых появляется нежелательная вторая копия
-   {
+{
+   --"setxkbmap 'us,ru' ',winkeys' 'grp:alt_shift_toggle'",
+   --"setxkbmap 'us,ru' ',winkeys' 'grp:caps_toggle'",
+   "kbdd",
     "dropbox start",
     "nm-applet",
     "gnome-settings-daemon",
-    "pasystray",
-    "conky",
+    --"pasystray",
+    --"conky",
     --"xcompmgr -cF",
 }
 
@@ -164,14 +143,15 @@ theme_menu()
 -- Themes define colours, icons, and wallpapers
 --beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 --beautiful.init(awful.util.getdir("config") .. "/themes/zhongguo/zhongguo.lua")
---beautiful.init(awful.util.getdir("config") .. "/themes/dust/theme.lua")
-beautiful.init(awful.util.getdir("config") .. "/current_theme/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/dust/theme.lua")
+--beautiful.init(awful.util.getdir("config") .. "/current_theme/theme.lua")
 
 --theme work
 
 -- This is used later as the default terminal and editor to run.
 --terminal = "x-terminal-emulator"
-terminal = "gnome-terminal"
+--terminal = "gnome-terminal"
+terminal = "lxterminal"
 --editor = "gedit"--os.getenv("EDITOR") or "editor"
 editor = "vim"
 editor_cmd = terminal .. " -e " .. editor
@@ -536,7 +516,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey}, "[", function () awful.util.spawn("xset led 3") end),
     awful.key({ modkey}, "]", function () awful.util.spawn("xset -led 3") end),
     awful.key({ modkey}, "z", function () rodentbane.start() end),
-    awful.key({modkey, "Control"}, "v", function() 
+    awful.key({modkey}, "v", function() 
                 wpchange()
                 --awful.util.spawn("awsetbg -f -r /home/kirill/.config/awesome/backgrounds/") 
             end),
@@ -553,15 +533,6 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
-
-    awful.key({ 'Mod1' }, "F1", function () aw_translate() end),
-    awful.key({ 'Mod1' }, "F2", function ()
-        awful.prompt.run({ prompt = "wiki: " }, mypromptbox[mouse.screen].widget,
-            function (command)
-                awful.util.spawn("google-chrome 'http://ru.wikipedia.org/w/index.php?search="..command.."'", false)
-                if tags[mouse.screen][2] then awful.tag.viewonly(tags[mouse.screen][2]) end
-            end)
-    end),
   -- Scratchpad
 
   awful.key({ modkey }, 0,
@@ -688,6 +659,8 @@ for i = 11, 32 do
                   end))
 end
 
+
+
 clientbuttons = awful.util.table.join(
 
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
@@ -714,8 +687,6 @@ awful.rules.rules = {
     { rule = { class = "gimp" },
       properties = { floating = true } },
     -- Set Firefox to always map on tags number 2 of screen 1.
-    { rule = { class = "Google-chrome" },
-       properties = { tag = tags[1][3] } },
 }
 -- }}}
 
@@ -773,9 +744,9 @@ if autorun then
    end
 end
 
-wpchange()
+--wpchange()
 
-mytimer1800:start()
+--mytimer1800:start()
 --mytimer10:start()
 --mytimer3:start()
 
