@@ -1,5 +1,9 @@
 neobundle.vim
 neocomplete.vim
+nerdcommenter
+rust.vim
 unite.vim
+vim-autoclose
+vim-scala
 vimfiler.vim
 vimproc
