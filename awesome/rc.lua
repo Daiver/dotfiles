@@ -18,6 +18,14 @@ require("eminent")
 
 local lain = require("lain")
 
+function run_once(cmd)
+  findme = cmd
+  firstspace = cmd:find(" ")
+  if firstspace then
+    findme = cmd:sub(0, firstspace-1)
+  end
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
+end
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -53,6 +61,8 @@ beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 terminal = "lxterminal"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
+
+run_once("unity-settings-daemon")
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -92,7 +102,7 @@ end
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 }, s, awful.layout.suit.tile.left)
+    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 }, s, awful.layout.suit.tile)
 end
 -- }}}
 
@@ -122,6 +132,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Create a textclock widget
 --mytextclock = awful.widget.textclock()
 mytextclock = awful.widget.textclock("  <i>%a</i> %d %b %Y, %H:%M:%S  ", 1)
+--mysystray = wibox.widget.systray()
 --volume = lain.widgets.alsabar()
 --mymem = lain.widgets.mem()
 --mypartition = lain.widgets.fs()
@@ -228,7 +239,8 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    --if s == 2 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(wibox.widget.systray()) 
     --right_layout:add(mycpu)
 	--right_layout:add(mysysload)
     --right_layout:add(mynet)
@@ -237,6 +249,7 @@ for s = 1, screen.count() do
     --left_layout:add(volumewidget)
     --right_layout:add(mypartition)
     right_layout:add(mytextclock)
+    --right_layout:add(mysystray)
     right_layout:add(mylayoutbox[s])
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -259,6 +272,7 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
+    awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
