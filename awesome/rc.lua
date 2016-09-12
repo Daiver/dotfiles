@@ -16,7 +16,7 @@ require("debian.menu")
 
 require("eminent")
 
-local lain = require("lain")
+--local lain = require("lain")
 
 function run_once(cmd)
   findme = cmd
@@ -58,7 +58,8 @@ beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 --terminal = "x-terminal-emulator"
-terminal = "lxterminal"
+--terminal = "lxterminal"
+terminal = "lxterminal -e zsh"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -273,6 +274,7 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
     awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
+    awful.key({ modkey,           }, "g", function () awful.util.spawn("google-chrome") end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
